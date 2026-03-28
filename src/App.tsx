@@ -506,6 +506,33 @@ function motivation({ isDesired, overall, desiredOverall, count, t }: { isDesire
   return { label: t.moodPush, className: "border-amber-200 bg-amber-50 text-amber-700" };
 }
 
+const APP_INFO = {
+  creator: "Your name / studio",
+  websiteLabel: "Website",
+  websiteUrl: "",
+  forumLabel: "Forum",
+  forumUrl: "",
+  instagramLabel: "Instagram",
+  instagramUrl: "",
+  discordLabel: "Discord",
+  discordUrl: "",
+  emailLabel: "Email",
+  emailValue: "",
+  videos: [
+    { title: "How to use the app", url: "" },
+    { title: "Schedule tab guide", url: "" },
+  ],
+};
+
+const INFO_TEXT = {
+  button: "Info",
+  title: "App Information",
+  madeBy: "Made by",
+  links: "Links",
+  videos: "Video Guides",
+  empty: "Add your link here",
+};
+
 const THEMES = {
   classic: { pageBg: "bg-[radial-gradient(circle_at_18%_16%,_rgba(255,255,255,0.95),_transparent_12%),radial-gradient(circle_at_76%_18%,_rgba(255,255,255,0.88),_transparent_14%),radial-gradient(circle_at_top,_rgba(147,197,253,0.34),_transparent_34%),linear-gradient(to_bottom,_#eff6ff,_#dbeafe_44%,_#f8fbff)]", panel: "border border-white/75 bg-white/68 shadow-[0_14px_55px_rgba(59,130,246,0.10)]", card: "border border-white/70 bg-white/66 shadow-[0_14px_42px_rgba(59,130,246,0.10)]", sidePanel: "border border-white/80 bg-white/80 shadow-[0_14px_52px_rgba(59,130,246,0.10)]", activeTab: "bg-sky-600 text-white shadow-[0_10px_24px_rgba(14,116,144,0.20)]", primaryButton: "bg-sky-600 text-white shadow-[0_16px_40px_rgba(14,116,144,0.22)] hover:bg-sky-700", heroCard: "bg-gradient-to-br from-sky-600 to-blue-500 text-white shadow-[0_14px_34px_rgba(59,130,246,0.24)]", averagesBox: "border border-sky-200 bg-gradient-to-br from-sky-50 to-white shadow-[0_10px_24px_rgba(59,130,246,0.10)]", averagesLabel: "text-sky-700", secondInfo: "border border-sky-100 bg-sky-50/85 text-slate-700", secondInfoIcon: "text-sky-600", desiredInfo: "border border-blue-100 bg-blue-50/85 text-slate-700", desiredInfoIcon: "text-blue-600", iconBubble: "bg-sky-100 text-sky-700", desiredBubble: "bg-blue-100 text-blue-700", extraBadge: "bg-sky-50 text-sky-700", finalBox: "border-2 border-sky-300 bg-gradient-to-br from-sky-50 to-white shadow-[0_8px_18px_rgba(59,130,246,0.12)]", finalLabel: "text-sky-700", finalInput: "border-sky-300 focus:border-sky-500 focus:ring-sky-100" },
   lavender: { pageBg: "bg-[radial-gradient(circle_at_top,_rgba(168,85,247,0.18),_transparent_26%),linear-gradient(to_bottom,_#faf5ff,_#eef2ff_52%,_#fff7ed)]", panel: "border border-white/80 bg-white/72 shadow-[0_16px_56px_rgba(139,92,246,0.10)]", card: "border border-white/78 bg-white/70 shadow-[0_16px_42px_rgba(139,92,246,0.10)]", sidePanel: "border border-white/80 bg-white/85 shadow-[0_16px_56px_rgba(139,92,246,0.10)]", activeTab: "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-[0_10px_24px_rgba(168,85,247,0.24)]", primaryButton: "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-[0_16px_36px_rgba(168,85,247,0.22)] hover:from-violet-700 hover:to-fuchsia-600", heroCard: "bg-gradient-to-br from-violet-700 to-fuchsia-500 text-white shadow-[0_16px_34px_rgba(168,85,247,0.24)]", averagesBox: "border border-violet-200 bg-gradient-to-br from-violet-50 to-white shadow-[0_10px_24px_rgba(168,85,247,0.10)]", averagesLabel: "text-violet-700", secondInfo: "border border-violet-100 bg-violet-50/80 text-slate-700", secondInfoIcon: "text-violet-600", desiredInfo: "border border-fuchsia-100 bg-fuchsia-50/80 text-slate-700", desiredInfoIcon: "text-fuchsia-600", iconBubble: "bg-violet-100 text-violet-700", desiredBubble: "bg-fuchsia-100 text-fuchsia-700", extraBadge: "bg-fuchsia-50 text-fuchsia-700", finalBox: "border-2 border-violet-300 bg-gradient-to-br from-violet-50 to-white shadow-[0_8px_18px_rgba(168,85,247,0.12)]", finalLabel: "text-violet-700", finalInput: "border-violet-300 focus:border-violet-500 focus:ring-violet-100" },
