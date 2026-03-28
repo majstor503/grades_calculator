@@ -783,7 +783,7 @@ export default function App() {
       }));
 
       return (
-        <section className="max-w-full overflow-x-auto pb-24">
+        <section className="overflow-x-auto pb-24">
           <datalist id="schedule-subject-options">
             {scheduleSubjectOptions.map((option) => <option key={option} value={option} />)}
           </datalist>
@@ -791,7 +791,7 @@ export default function App() {
             <button type="button" onClick={() => removeScheduleRow(scheduleRows.length - 1)} disabled={scheduleRows.length <= 1} className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40" aria-label={t.schedule.removeRow || 'Remove row'}><Minus className="h-4 w-4" /></button>
             <button type="button" onClick={addScheduleRow} className={cn("inline-flex h-10 w-10 items-center justify-center rounded-xl text-sm font-medium transition hover:-translate-y-0.5", theme.primaryButton)} style={isCustomStyle ? { background: accent, boxShadow: `0 12px 24px ${accentShadow}`, color: "white" } : undefined} aria-label={t.schedule.addRow || t.schedule.addPeriod}><Plus className="h-4 w-4" /></button>
           </div>
-          <div className={cn("w-full min-w-[920px] overflow-hidden rounded-[24px] border border-white/50 backdrop-blur-2xl backdrop-saturate-150", theme.card)}>
+          <div className={cn("min-w-[920px] overflow-hidden rounded-[24px] border border-white/50 backdrop-blur-2xl backdrop-saturate-150", theme.card)}>
             <div className="grid grid-cols-[96px_repeat(5,minmax(150px,1fr))] border-b border-slate-200/80 bg-white/65 text-sm font-semibold text-slate-900">
               <div className="px-3 py-3 text-[11px] uppercase tracking-[0.14em] text-slate-500">{t.schedule.time}</div>
               {DAYS.map((day) => <div key={day} className="border-l border-slate-200/80 px-3 py-3 text-center">{t.schedule.days[day]}</div>)}
@@ -924,9 +924,9 @@ export default function App() {
 
   return (
     <div className={cn("min-h-screen text-slate-900", theme.pageBg)} style={customPageStyle} dir={state.language === "ar" ? "rtl" : "ltr"}>
-      <div className="mx-auto max-w-7xl overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        <div className="min-w-0 grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-          <main className="min-w-0 space-y-6 overflow-visible">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+          <main className="space-y-6 overflow-visible">
             <section className={cn("overflow-visible rounded-[30px] p-5 backdrop-blur-2xl backdrop-saturate-150 sm:p-7", theme.panel)}>
               <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                 <div className="max-w-4xl flex-1">
@@ -951,7 +951,7 @@ export default function App() {
             {renderMainContent()}
           </main>
 
-          <aside className="min-w-0 lg:sticky lg:top-8">
+          <aside className="lg:sticky lg:top-8">
             <div className={cn("overflow-hidden rounded-[30px] p-5 backdrop-blur-2xl backdrop-saturate-150 sm:p-6", theme.sidePanel)}>
               <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium tracking-wide text-slate-600">{t.activePeriod}</div>
               <h2 className="mt-4 text-xl font-semibold tracking-tight text-slate-900">{tabLabels[state.activeTab]}</h2>
