@@ -59,18 +59,22 @@ const LANGUAGES: { key: Lang; label: string; flag: string }[] = [
   { key: "ar", label: "العربية", flag: "🇸🇦" },
   { key: "zh", label: "中文", flag: "🇨🇳" },
 ];
-const FLAG_IMAGES: Record<Lang, string> = {
-  en: "https://flagcdn.com/w40/gb.png",
-  de: "https://flagcdn.com/w40/de.png",
-  sr: "https://flagcdn.com/w40/rs.png",
-  fr: "https://flagcdn.com/w40/fr.png",
-  es: "https://flagcdn.com/w40/es.png",
-  it: "https://flagcdn.com/w40/it.png",
-  ru: "https://flagcdn.com/w40/ru.png",
-  hi: "https://flagcdn.com/w40/in.png",
-  ar: "https://flagcdn.com/w40/sa.png",
-  zh: "https://flagcdn.com/w40/cn.png",
+const FLAG_CODES: Record<Lang, string> = {
+  en: "gb",
+  de: "de",
+  sr: "rs",
+  fr: "fr",
+  es: "es",
+  it: "it",
+  ru: "ru",
+  hi: "in",
+  ar: "sa",
+  zh: "cn",
 };
+
+const FLAG_IMAGES: Record<Lang, string> = Object.fromEntries(
+  Object.entries(FLAG_CODES).map(([key, code]) => [key, `https://flagcdn.com/w40/${code}.png`])
+) as Record<Lang, string>;
 
 const Icon = ({ children, className = "", style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) => (
   <span className={`inline-flex items-center justify-center ${className}`} style={style}>{children}</span>
@@ -87,6 +91,28 @@ const Sparkles = ({ className = "" }) => <Icon className={className}>✨</Icon>;
 const Target = ({ className = "" }) => <Icon className={className}>◎</Icon>;
 const SettingsIcon = ({ className = "" }) => <Icon className={className}>⚙</Icon>;
 const InfoIcon = ({ className = "" }) => <Icon className={className}>ℹ</Icon>;
+
+const FlagImage = ({ lang, className = "" }: { lang: Lang; className?: string }) => {
+  const [failed, setFailed] = useState(false);
+  const fallback = LANGUAGES.find((x) => x.key === lang)?.flag || "🌐";
+
+  if (failed) {
+    return <span className={className}>{fallback}</span>;
+  }
+
+  return (
+    <img
+      key={lang}
+      src={FLAG_IMAGES[lang]}
+      alt=""
+      className={className}
+      loading="eager"
+      decoding="async"
+      referrerPolicy="no-referrer"
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 const STYLE_OPTIONS: { key: ThemeKey; labels: Record<string, string> }[] = [
   { key: "classic", labels: { en: "Cloud", de: "Cloud", sr: "Cloud" } },
@@ -909,7 +935,7 @@ export default function App() {
                     <div><label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{t.schoolName}</label><input value={state.schoolName} onChange={(e) => updateTopField("schoolName", e.target.value)} placeholder={t.schoolPlaceholder} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70" /></div>
                     <div><label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{t.studentName}</label><input value={state.studentName} onChange={(e) => updateTopField("studentName", e.target.value)} placeholder={t.studentPlaceholder} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70" /></div>
                     <div><label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{t.className}</label><input value={state.className} onChange={(e) => updateTopField("className", e.target.value)} placeholder={t.classPlaceholder} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70" /></div>
-                    <div><label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{t.language}</label><button ref={langButtonRef} type="button" onClick={toggleLangMenu} className="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition hover:bg-slate-50 focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70"><span className="flex min-w-0 items-center gap-2 truncate text-left"><img src={FLAG_IMAGES[state.language]} alt="" className="h-4 w-6 rounded-sm object-cover shadow-sm" /><span className="truncate">{LANGUAGES.find((x) => x.key === state.language)?.label}</span></span><span className="ml-3 text-slate-400">▾</span></button></div>
+                    <div><label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-slate-500">{t.language}</label><button ref={langButtonRef} type="button" onClick={toggleLangMenu} className="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition hover:bg-slate-50 focus:border-slate-400 focus:ring-4 focus:ring-slate-200/70"><span className="flex min-w-0 items-center gap-2 truncate text-left"><FlagImage lang={state.language} className="h-4 w-6 rounded-sm object-cover shadow-sm" /><span className="truncate">{LANGUAGES.find((x) => x.key === state.language)?.label}</span></span><span className="ml-3 text-slate-400">▾</span></button></div>
                   </div>
                 </div>
                 <div className="flex w-full items-center justify-end gap-2 lg:w-auto"><button type="button" onClick={() => { setOpenSubjectPickerId(null); setIsInfoOpen((p) => !p); setIsSettingsOpen(false); }} className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"><InfoIcon className="h-4 w-4" />{INFO_TEXT.button}</button><button type="button" onClick={() => { setOpenSubjectPickerId(null); setIsSettingsOpen((p) => !p); setIsInfoOpen(false); }} className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"><SettingsIcon className="h-4 w-4" />{t.settings}</button></div>
@@ -959,7 +985,7 @@ export default function App() {
                 onClick={() => { updateTopField("language", language.key as Lang); setIsLangOpen(false); setLangMenuPos(null); }}
                 className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-slate-100"
               >
-                <img src={FLAG_IMAGES[language.key]} alt="" className="h-4 w-6 rounded-sm object-cover shadow-sm" />
+                <FlagImage lang={language.key} className="h-4 w-6 rounded-sm object-cover shadow-sm" />
                 <span>{language.label}</span>
               </button>
             ))}
